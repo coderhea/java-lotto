@@ -26,41 +26,43 @@ public class StreamForMapStudy {
      * 3.Getting a Map's Keys Using Streams
      */
     Map<String, String> books = new HashMap<>();
-        books.put("000-000","book1");
-        books.put("111-111","book2 Sang");
-        books.put("111-000","book2 Ha");
 
-    //interested in any key for a book matching title "book1"
-    //bookTitle may not exist in our shelf : Optional<String>
-    //only want Key of each entry : map -> map.Entry<> .getKey()
-    //findFirst() terminal Operation is Optional<String>
-    Optional<String> optionalIsbn = books.entrySet()
-            .stream()
-            .filter(book -> "book1".equals(book.getValue()))
-            .map(Map.Entry::getKey)
-            .findFirst();
+    public StreamForMapStudy() {
+        books.put("000-000", "book1");
+        books.put("111-111", "book2 Sang");
+        books.put("111-000", "book2 Ha");
 
-    // assertEquals("000-000", optionalIsbn.get());
+        //interested in any key for a book matching title "book1"
+        //bookTitle may not exist in our shelf : Optional<String>
+        //only want Key of each entry : map -> map.Entry<> .getKey()
+        //findFirst() terminal Operation is Optional<String>
+        Optional<String> optionalIsbn = books.entrySet()
+                .stream()
+                .filter(book -> "book1".equals(book.getValue()))
+                .map(Map.Entry::getKey)
+                .findFirst();
 
-    //mutiple results matching title "book2"
-    //collect( to List())
+        // assertEquals("000-000", optionalIsbn.get());
 
-    List<String> isbnCodes = books.entrySet()
-            .stream()
-            .filter(e -> e.getValue().startsWith("book2"))
-            .map(Map.Entry::getKey)
-            .collect(Collectors.toList());
+        //mutiple results matching title "book2"
+        //collect( to List())
 
-    /**
-     * 4.Getting a Map's Values Using Streams
-     */
-    //stream entrySet, filter, then map to make Stream Of values, and Collect
-    List<String> titles = books.entrySet()
-            .stream()
-            .filter(e -> e.getKey().startsWith("111-"))
-            .map(Map.Entry::getValue)
-            .collect(Collectors.toList());
+        List<String> isbnCodes = books.entrySet()
+                .stream()
+                .filter(e -> e.getValue().startsWith("book2"))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
+        /**
+         * 4.Getting a Map's Values Using Streams
+         */
+        //stream entrySet, filter, then map to make Stream Of values, and Collect
+        List<String> titles = books.entrySet()
+                .stream()
+                .filter(e -> e.getKey().startsWith("111-"))
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toList());
 //    assertEquals(2, titles.size());
 //    assertTrue(titles.contains("book2 Sang"));
+    }
 }
-
